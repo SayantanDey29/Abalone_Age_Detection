@@ -50,7 +50,7 @@ cols=data.columns[1:8]
 cols
 
 for x in cols:
-  sns.scatterplot(x=x,y='Rings',data=data,hue='Sex')
+  sns.scatterplot(x=x,y=data['Rings'],data=data,hue='Sex')
   plt.show()
 
 data.skew().sort_values(ascending=False)
@@ -115,7 +115,7 @@ print(x_test.shape,y_test.shape)
 from sklearn.svm import SVR
 from sklearn.neighbors import KNeighborsRegressor
 
-model=KNeighborsRegressor(n_neighbors=5,weights='distance',algorithm='brute',p=3)
+model=KNeighborsRegressor(n_neighbors=5,weights='distance',algorithm='brute',p=2)
 model.fit(x_train,y_train)
 ans=model.predict(x_test)
 
@@ -134,8 +134,7 @@ y_true=pd.DataFrame(y_test.values)
 y_true["new"]=ans['predicted']
 y_true.tail()
 
-from sklearn.metrics import r2_score,mean_squared_error
-error_c=r2_score(y_test,ans)
+from sklearn.metrics import mean_squared_error
 rme=mean_squared_error(y_test,ans,squared=False)
-print(error_c,rme)
+print(rme)
 
